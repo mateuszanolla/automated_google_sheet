@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>New Use Case</title>
+  <style>
+    /* Basic styling for a clean look */
+    body {
+      font-family: sans-serif;
+      margin: 20px;
+    }
+    label {
+      display: block;
+      margin-bottom: 5px;
+    }
+    input, select {
+      width: 90%;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      margin-bottom: 15px;
+    }
+  </style>
+</head>
+<body>
+  <form>
+    <label for="useCaseName">Name of the Use Case:</label>
+    <input type="text" id="useCaseName" placeholder="Enter Use Case Name">
+
+    <label for="useCaseType">Use Case Type:</label>
+    <select id="useCaseType">
+      <option value="Phone device">Phone device</option>
+      <option value="NOS- Debug">NOS- Debug</option>
+      <option value="Laptop (Corp)">Laptop (Corp)</option>
+    </select>
+  </form>
+  <button id="btn">Submit</button>
+</body>
+<script>
+  document.getElementById("btn").addEventListener("click", submitForm);
+
+  function submitForm() {
+    var useCaseName = document.getElementById("useCaseName").value;
+    var useCaseType = document.getElementById("useCaseType").value;
+   
+    google.script.run
+    .submitForm(useCaseName, useCaseType);
+    google.script.host.close();
+  }
+
+  
+</script>
+</html>
