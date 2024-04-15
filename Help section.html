@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>New Use Case</title>
+    <style>
+      /* Basic styling for a clean look */
+      body {
+        font-family: sans-serif;
+        margin: 20px;
+      }
+      label {
+        display: block;
+        margin-bottom: 5px;
+      }
+      form, select {
+        width: 40%;
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        margin: 0 auto 15px;
+      }
+      .button {
+        position: fixed;
+        bottom: 10px;
+        right: 10px;
+        width: 30%;
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        margin-bottom: 15px;
+      }
+
+      .new-line {
+        display: block;
+      }
+
+    </style>
+  </head>
+
+  <body>
+    <section>
+      <h3>Hey! Got lost?</h3>
+      <p> We can help you! Check out our complete automations guide <a href="https://docs.google.com/presentation/d/1aWJYEWnBs7MMLwDDb5qYZ5LhGBA7QomU5cLGhzNdYZs/view">here</a>!</p>
+    </section>
+
+      <form align="center">
+        <label for="testToView" align="center">Select an automation to see:</label>
+        <select id="testToView" align="center">
+          <option value="" disabled selected hidden>Select an automation</option>
+          <option value="dailyTest">Start a daily test</option>
+          <option value="hideShow">Hide/show columns</option>
+          <option value="addUC">Add new Use Case</option>
+        </select>
+        
+    </form>
+
+
+
+    <section id="dailyTest" hidden>
+      <h4>Start new test</h4>
+      <p><strong>Step 1:</strong> Within this sub-menu, select for which release you wish to do the test for:</p>
+      <ol>
+        <li>Nightly test</li>
+        <li>Afternoon test</li>
+        <li>Extra release</li>
+      </ol>
+      <div align="right">
+        <p><em><strong>Heads up:</strong> If it's the first time you're running this automation, it will require authorizations. Simply allow it and then run the automation once again.</em></p>
+      </div>
+      <p><strong>Step 2:</strong> After the click you should see a confirmation message asking if you really want to start a test for that day and the shift selected.</p>
+      <div align="center">
+        <p><strong>Always verify the information before clicking Ok!</strong></p> 
+      </div>
+      <p><strong>Step 3:</strong> You now should see a gray banner saying <strong>"Running Script"</strong>, with the options to Cancel or Dismiss. Time for a coffee and let the script do its magic! <strong>Don't cancel or dismiss it!!</strong></p>
+      <p><strong>Step 4:</strong> When you get an alert saying <strong>"Done!"</strong>, it means all the relevant tabs already have a column created for your test with all the informations: date, shift, your LDAP, device and the formula to bring the bug ID. Go to the <strong>Test Suite tab</strong> and put your Bug release ID in the last row and column (under the test that was just created). Now, all the tests have already this link.</p>
+      </br>
+      <p align="center"><strong>You're all set to test! </strong></p>
+      </br>
+      <p>The <strong>Time of execution</strong> will be auto populated in each test once you select the overall result of that test. No need to worry!
+    </section>
+
+
+    <section id="hideShow" hidden>
+      <h4>Hide/show columns</h4>
+      <p>This automation will show as many tests as you wish <strong>in all the tabs</strong> with tests + Test Suite.</p>
+    
+      <p><strong>Step 1:</strong> Once you click it, you'll get a pop-up message asking you how many tests you wish to see per tab.</p>
+      <p align="center">You should put a number from 1 to the maximum tabs available in the tab. Out of range numbers and texts will return an error and cancel the operation.</p>
+      <p><strong>Step 2:</strong> You now should see a gray banner saying <strong>"Running Script"</strong>, with the options to Cancel or Dismiss. Time for a coffee and let the script do its magic! <strong>Don't cancel or dismiss it!!</strong></p>
+      </br>
+      <p align="center"><strong>You're all set! </strong></p>
+      </br>
+    </section>
+
+
+    <section id="addUC" hidden>
+      <h4>Add new Use Case</h4>
+      <p align="center"><strong>This must be approved by our manager. Do not run this automation before.</strong></p>
+      <p>This automation will add a new Test Case to be tested in Sanity QA. For that, a brand new tab and a row in the Test Suite will be added.</p>
+      <p><strong>Step 1:</strong> Once you click it, you'll get a pop-up message asking you the name of the new test and the device in which this test should be done (Phone, NOS with corp account or Laptop).</p>
+      <p align="center">The tab and the new row on Test Suite will receive this name and they <strong>need to match</strong> in order to be visible to the automations. It shouldn't be modified later.</p>
+      <p><strong>Step 2:</strong> After you submit those, the pop-up will close. Just wait for a few seconds until you see an alert message.</p>
+      <p><strong>Step 3:</strong> In one minute or so, you will have an alert saying that the operation is complete and that the next step is to write the test steps on the dedicated space and provide the screenshots. </p>
+      <p> <strong>For the automations to work we have to have:</strong></p>
+        <ul>
+          <li>👉🏻 One header "Date" in the first row;</li>
+          <li>👉🏻 In the same column as "Date", we need the titles "Release Bug ID", "Time of execution", "Qa'ed by", "Device" and "Expected Result".</li>
+        </ul>
+
+      <p><strong>Step 4:</strong> After the script is finished, the new tab will appear for you. Phantom rows will be created and hidden to match the number of columns in other tabs. <strong>Do not delete them</strong>. From the next row of the "Expected result" row, you can edit freely. You also can add/delete rows of checkboxes (between the Task Link row and the Time of execution row.</p> 
+      </br>
+      <p align="center"><strong>New test is now created and fully automated.</strong></p>
+      </br>
+
+    </section>
+
+    <button id="close" class="button">Close</button>
+  </body>
+  <script>
+
+    document.getElementById("close").addEventListener("click", close);
+    document.getElementById("testToView").addEventListener("change", showSections)
+
+    function close(){
+      google.script.host.close()
+    }
+
+    function showSections() {
+      var testToShow = document.getElementById("testToView").value;
+      var helps = ["dailyTest", "hideShow", "addUC"];
+
+      for (a = 0; a < helps.length; a++) {
+        var current = document.getElementById(helps[a]);
+
+        if (testToShow == helps[a]) {
+          current.removeAttribute("hidden");
+        } else {
+          current.setAttribute("hidden", ""); // Add the hidden attribute
+        }
+      }
+    }
+        
+      
+    
+
+  </script>
+</html>
